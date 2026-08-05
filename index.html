@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Verhindert die Indexierung durch Suchmaschinen wie Google -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>RückenFit Pro</title>
+
+    <!-- PWA / App-Icon Einstellungen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RückenFitPro">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Das generierte Icon mit dem Hintergrundbild und Text -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='o' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0%25' stop-color='%230f172a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%230f172a' stop-opacity='0.4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cimage href='https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format%26fit=crop%26crop=top%26w=512%26q=80' width='512' height='512' preserveAspectRatio='xMidYMid slice'/%3E%3Crect width='512' height='512' fill='url(%23o)'/%3E%3Ctext x='256' y='240' font-family='sans-serif' font-weight='900' font-size='68' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3ERückenFit%3C/text%3E%3Ctext x='256' y='320' font-family='sans-serif' font-weight='900' font-size='68' fill='%2334d399' text-anchor='middle' dominant-baseline='middle'%3EPro%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='o' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0%25' stop-color='%230f172a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%230f172a' stop-opacity='0.4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cimage href='https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format%26fit=crop%26crop=top%26w=512%26q=80' width='512' height='512' preserveAspectRatio='xMidYMid slice'/%3E%3Crect width='512' height='512' fill='url(%23o)'/%3E%3Ctext x='256' y='240' font-family='sans-serif' font-weight='900' font-size='68' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3ERückenFit%3C/text%3E%3Ctext x='256' y='320' font-family='sans-serif' font-weight='900' font-size='68' fill='%2334d399' text-anchor='middle' dominant-baseline='middle'%3EPro%3C/text%3E%3C/svg%3E">
+
+    <!-- Externe Ressourcen -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        select, input {
+            outline: none;
+        }
+        .check-icon {
+            transform: scale(0);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        input:checked + div .check-icon {
+            transform: scale(1);
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        .glass-nav {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .chart-hover:hover {
+            fill: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+    <!-- Header mit Bild -->
+    <div class="relative h-56 md:h-80 lg:h-96 shrink-0 w-full">
+        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&crop=top&w=1600&q=80" class="w-full h-full object-cover object-top opacity-50" alt="Motivating Fitness">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+        <div class="absolute bottom-4 left-6 right-6 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-1">RückenFit<span class="text-emerald-400">Pro</span></h1>
+                <p class="text-slate-300 text-sm sm:text-base font-medium">Dein täglicher Trainings-Tracker</p>
+            </div>
+            <div class="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 shrink-0">
+                <i class="fas fa-dumbbell text-xl sm:text-2xl text-white"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hauptinhalt -->
+    <main id="app-content" class="flex-1 overflow-y-auto w-full max-w-3xl mx-auto px-4 pb-32 pt-6 space-y-4">
+        <div id="view-tracker" class="space-y-4">
+            <div class="flex justify-between mb-2">
+                <button id="btn-manage-ex" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-blue-400 font-semibold py-1.5 px-3 rounded-lg text-xs flex items-center gap-1.5 shadow-md transition-colors">
+                    <i class="fas fa-edit"></i> Übungen anpassen
+                </button>
+                <button id="btn-jump-today" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 font-semibold py-1.5 px-3 rounded-lg text-xs flex items-center gap-1.5 shadow-md transition-colors">
+                    <i class="fas fa-crosshairs"></i> Heute
+                </button>
+            </div>
+            <div id="tracker-cards-container" class="space-y-4"></div>
+        </div>
+        <div id="view-overview" class="hidden space-y-6"></div>
+    </main>
+
+    <!-- Navigation -->
+    <nav class="fixed bottom-0 w-full glass-nav pb-safe">
+        <div class="max-w-3xl mx-auto flex justify-around items-center h-16 px-2">
+            <button class="nav-btn flex flex-col items-center justify-center w-full h-full text-emerald-400 transition-colors" data-target="tracker">
+                <i class="fas fa-calendar-check text-xl mb-1"></i><span class="text-[10px] font-semibold uppercase tracking-wider">Tracker</span>
+            </button>
+            <button class="nav-btn flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-200 transition-colors" data-target="overview">
+                <i class="fas fa-chart-pie text-xl mb-1"></i><span class="text-[10px] font-semibold uppercase tracking-wider">Übersicht</span>
+            </button>
+            <button class="btn-import flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-200 transition-colors">
+                <i class="fas fa-file-import text-xl mb-1"></i><span class="text-[10px] font-semibold uppercase tracking-wider">Import</span>
+            </button>
+            <button class="btn-export flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-200 transition-colors">
+                <i class="fas fa-file-export text-xl mb-1"></i><span class="text-[10px] font-semibold uppercase tracking-wider">Export</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Modal Fenster -->
+    <div id="modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-700 m-auto max-h-[90vh] overflow-y-auto transition-all duration-300">
+            <div class="text-center">
+                <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fas fa-info-circle" id="modal-icon"></i>
+                </div>
+                <h2 id="modal-title" class="text-xl font-bold text-white mb-2"></h2>
+                <div id="modal-body" class="mb-6">
+                    <p id="modal-text" class="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap"></p>
+                </div>
+                <button id="btn-modal-close" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">Verstanden</button>
+            </div>
+        </div>
+    </div>
+    
+    <input type="file" id="file-import" accept=".json" class="hidden">
+
+    <script>
+        const defaultExercises = [
+            { id: "nerve", cat: "Nervenmobilisation", icon: "fa-bolt", color: "text-yellow-400", items: ["Nerv Stretching"] },
+            { id: "mobil", cat: "Generelle Mobilisation", icon: "fa-person-walking", color: "text-blue-400", items: ["Fersen ziehen", "Beckenschaukel", "Füßebaumeln"] },
+            { id: "kraft", cat: "Kraftübungen", icon: "fa-dumbbell", color: "text-purple-400", items: ["Side Plank", "Plank", "Bird Dog", "Beckenbrücke", "Standübung Blume"] }
+        ];
+        
+        window.appExercises = JSON.parse(JSON.stringify(defaultExercises));
+        const wbOpts = ["Auswählen...", "Sehr gut", "Gut", "Mittel", "Schlecht", "Sehr schlecht"];
+        const wbColors = { "Sehr gut": "text-emerald-400", "Gut": "text-green-400", "Mittel": "text-yellow-400", "Schlecht": "text-orange-400", "Sehr schlecht": "text-red-500", "Auswählen...": "text-slate-500" };
+        const wbMap = { "Sehr gut": 5, "Gut": 4, "Mittel": 3, "Schlecht": 2, "Sehr schlecht": 1 };
+        window.appData = {};
+
+        window.showManageExercisesModal = function() {
+            let html = '<div class="space-y-6 text-left pb-4">';
+            window.appExercises.forEach((cat, cIdx) => {
+                html += `<div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50"><h3 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fas ${cat.icon} ${cat.color}"></i> ${cat.cat}</h3><ul class="space-y-2 mb-3">`;
+                cat.items.forEach((ex, iIdx) => {
+                    html += `<li class="flex justify-between items-center bg-slate-800 p-2 rounded-lg border border-slate-700"><span class="text-slate-200 text-sm font-medium truncate pr-2">${ex}</span><div class="flex gap-1.5 shrink-0"><button onclick="renameEx(${cIdx}, ${iIdx})" class="bg-slate-700 hover:bg-slate-600 text-blue-400 p-1.5 rounded-md transition-colors"><i class="fas fa-edit"></i></button><button onclick="deleteEx(${cIdx}, ${iIdx})" class="bg-slate-700 hover:bg-slate-600 text-red-400 p-1.5 rounded-md transition-colors"><i class="fas fa-trash"></i></button></div></li>`;
+                });
+                html += `</ul><div class="flex gap-2"><input type="text" id="add-ex-input-${cIdx}" class="flex-1 bg-slate-800 border border-slate-700 text-white p-2 rounded-lg text-sm outline-none focus:border-emerald-500" placeholder="Neue Übung..."><button onclick="addEx(${cIdx})" class="bg-emerald-500/20 text-emerald-400 px-4 rounded-lg border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors"><i class="fas fa-plus"></i></button></div></div>`;
+            });
+            html += `</div>`;
+            showModalCustom("Übungen verwalten", html, "fa-tasks", true);
+        };
+
+        window.saveSettings = function() {
+            appData._settings_ = { exercises: window.appExercises };
+            document.querySelectorAll(".card-content:not(.hidden)").forEach(el => { buildDayForm(el.dataset.date, el) });
+            document.querySelectorAll(".card-content.hidden").forEach(el => { el.innerHTML = "" });
+            document.querySelectorAll(".indicator").forEach(el => updateInd(el.dataset.date));
+            if (!document.getElementById("view-overview").classList.contains("hidden")) { renderOverview() }
+        };
+
+        window.addEx = function(cIdx) {
+            const input = document.getElementById(`add-ex-input-${cIdx}`);
+            const val = input.value.trim();
+            if (!val) return;
+            if (window.appExercises[cIdx].items.includes(val)) { alert("Übung existiert bereits in dieser Kategorie!"); return; }
+            window.appExercises[cIdx].items.push(val);
+            saveSettings();
+            showManageExercisesModal();
+        };
+
+        window.renameEx = function(cIdx, iIdx) {
+            const oldName = window.appExercises[cIdx].items[iIdx];
+            const newName = prompt("Neuer Name für '" + oldName + "':", oldName);
+            if (!newName || newName.trim() === "" || newName.trim() === oldName) return;
+            const finalName = newName.trim();
+            if (window.appExercises[cIdx].items.includes(finalName)) { alert("Eine Übung mit diesem Namen existiert bereits!"); return; }
+            Object.keys(appData).forEach(date => {
+                if (date !== "_settings_" && appData[date].ex && appData[date].ex[oldName]) {
+                    appData[date].ex[finalName] = appData[date].ex[oldName];
+                    delete appData[date].ex[oldName];
+                }
+            });
+            window.appExercises[cIdx].items[iIdx] = finalName;
+            saveSettings();
+            showManageExercisesModal();
+        };
+
+        window.deleteEx = function(cIdx, iIdx) {
+            const oldName = window.appExercises[cIdx].items[iIdx];
+            if (!confirm("Übung '" + oldName + "' wirklich löschen?\n\nAlle historischen Einträge für diese Übung werden ebenfalls in der App und für den Export entfernt.")) return;
+            Object.keys(appData).forEach(date => {
+                if (date !== "_settings_" && appData[date].ex && appData[date].ex[oldName]) {
+                    delete appData[date].ex[oldName];
+                }
+            });
+            window.appExercises[cIdx].items.splice(iIdx, 1);
+            saveSettings();
+            showManageExercisesModal();
+        };
+
+        function ensureData(d, ex) {
+            if (!appData[d]) appData[d] = { ex: {} };
+            if (ex && !appData[d].ex[ex]) appData[d].ex[ex] = { c: false, s: 1, r: 10 };
+        }
+
+        function buildDayForm(dateStr, container) {
+            const data = appData[dateStr] || {};
+            let html = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 p-5 bg-slate-800/50 rounded-2xl border border-slate-700/50"><div class="flex flex-col gap-2"><label class="text-xs font-bold text-slate-400 uppercase tracking-wider"><i class="fas fa-heartbeat mr-1"></i> Allgemeinbefinden</label><div class="relative"><select class="wb-gen w-full appearance-none bg-slate-900 border border-slate-700 text-white p-3 rounded-xl font-medium focus:border-emerald-500" data-date="${dateStr}">`;
+            wbOpts.forEach(o => { html += `<option value="${o}" ${data.gen === o ? "selected" : ""}>${o}</option>` });
+            html += `</select><div class="absolute right-3 top-3.5 text-slate-400 pointer-events-none"><i class="fas fa-chevron-down text-sm"></i></div></div></div><div class="flex flex-col gap-2"><label class="text-xs font-bold text-slate-400 uppercase tracking-wider"><i class="fas fa-bone mr-1"></i> Rückenbefinden</label><div class="relative"><select class="wb-back w-full appearance-none bg-slate-900 border border-slate-700 text-white p-3 rounded-xl font-medium focus:border-emerald-500" data-date="${dateStr}">`;
+            wbOpts.forEach(o => { html += `<option value="${o}" ${data.back === o ? "selected" : ""}>${o}</option>` });
+            html += `</select><div class="absolute right-3 top-3.5 text-slate-400 pointer-events-none"><i class="fas fa-chevron-down text-sm"></i></div></div></div></div>`;
+            
+            window.appExercises.forEach(cat => {
+                const unitText = cat.id === "kraft" ? "SEK" : "Wdh";
+                html += `<div class="mt-8 mb-4 flex items-center gap-2"><i class="fas ${cat.icon} ${cat.color} text-xl"></i><h3 class="text-lg font-bold text-white">${cat.cat}</h3></div><div class="space-y-3">`;
+                cat.items.forEach(ex => {
+                    const exData = (data.ex && data.ex[ex]) ? data.ex[ex] : { c: false, s: 1, r: 10 };
+                    html += `<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-slate-800 rounded-2xl border border-slate-700 shadow-sm"><label class="flex items-center gap-4 cursor-pointer group flex-1"><input type="checkbox" class="ex-check peer hidden" data-date="${dateStr}" data-ex="${ex}" ${exData.c ? "checked" : ""}><div class="w-7 h-7 shrink-0 rounded-full border-2 border-slate-500 flex items-center justify-center peer-checked:bg-emerald-500 peer-checked:border-emerald-500 transition-all duration-200"><i class="fas fa-check text-white text-xs check-icon"></i></div><span class="text-[15px] font-semibold text-slate-200 group-hover:text-white transition-colors break-words">${ex}</span></label><div class="flex items-center gap-3 bg-slate-900 p-1.5 rounded-xl border border-slate-700 ml-11 sm:ml-0 shrink-0"><div class="flex items-center gap-1.5 px-2"><input type="number" inputmode="decimal" class="ex-set w-8 bg-transparent text-white text-center font-bold text-lg p-0" data-date="${dateStr}" data-ex="${ex}" value="${exData.s}"><span class="text-xs text-slate-500 font-bold uppercase">Sätze</span></div><div class="w-px h-6 bg-slate-700"></div><div class="flex items-center gap-1.5 px-2"><input type="number" inputmode="decimal" class="ex-rep w-8 bg-transparent text-white text-center font-bold text-lg p-0" data-date="${dateStr}" data-ex="${ex}" value="${exData.r}"><span class="text-xs text-slate-500 font-bold uppercase">${unitText}</span></div></div></div>`;
+                });
+                html += `</div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateInd(d) {
+            if (d === "_settings_") return;
+            const el = document.querySelector(`.indicator[data-date="${d}"]`);
+            if (!el) return;
+            const data = appData[d];
+            let c = 0;
+            if (data && data.ex) { Object.values(data.ex).forEach(x => { if (x.c) c++ }) }
+            if (c > 0) { el.innerHTML = `<span class="bg-emerald-500 text-slate-900 text-[11px] sm:text-xs font-bold px-2 py-1 rounded-md shadow-sm shadow-emerald-500/20 whitespace-nowrap">${c} Erledigt</span>` } else { el.innerHTML = '' }
+        }
+
+        function renderOverview() {
+            const cont = document.getElementById("view-overview");
+            const dates = Object.keys(appData).filter(k => k !== "_settings_").sort().reverse();
+            let html = `<div class="mb-6 flex flex-col sm:flex-row justify-end sm:items-center gap-4"><button id="btn-show-chart" class="bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-400 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors shrink-0"><i class="fas fa-chart-line text-sm"></i> Fortschritts-Diagramm</button></div>`;
+            if (dates.length === 0) {
+                html += `<div class="text-center p-10"><i class="fas fa-clipboard-list text-6xl text-slate-700 mb-4"></i><h2 class="text-xl font-bold text-slate-400">Noch keine Daten</h2><p class="text-slate-500 mt-2 text-sm">Trag im Tracker deine ersten Übungen ein, um hier eine Auswertung zu sehen.</p></div>`;
+                cont.innerHTML = html;
+                return;
+            }
+            html += `<div class="space-y-4">`;
+            dates.forEach(date => {
+                const data = appData[date];
+                let counts = { nerve: 0, mobil: 0, kraft: 0 };
+                let total = 0;
+                if (data.ex) {
+                    window.appExercises.forEach(cat => {
+                        cat.items.forEach(ex => {
+                            if (data.ex[ex] && data.ex[ex].c) {
+                                const s = (data.ex[ex].s !== undefined && data.ex[ex].s !== "") ? parseFloat(data.ex[ex].s) : 1;
+                                const r = (data.ex[ex].r !== undefined && data.ex[ex].r !== "") ? parseFloat(data.ex[ex].r) : 10;
+                                counts[cat.id] += ((isNaN(s) ? 0 : s) * (isNaN(r) ? 0 : r));
+                                total++;
+                            }
+                        });
+                    });
+                }
+                if (total === 0 && (!data.gen || data.gen === "Auswählen...") && (!data.back || data.back === "Auswählen...")) return;
+                const [yy, mm, dd] = date.split('-');
+                const disp = new Date(yy, mm - 1, dd).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "short" });
+                html += `<div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 shadow-lg"><div class="flex justify-between items-center mb-4"><span class="text-lg font-bold text-white"><i class="fas fa-calendar-day text-slate-500 mr-2"></i>${disp}</span><span class="text-xs font-bold bg-slate-700 text-slate-300 px-2 py-1 rounded-lg whitespace-nowrap">${total} Übungen</span></div><div class="grid grid-cols-3 gap-2 mb-4">`;
+                
+                window.appExercises.forEach(cat => {
+                    const c = counts[cat.id];
+                    const unitText = cat.id === "kraft" ? "SEK" : "Wdh";
+                    html += `<div class="flex flex-col items-center justify-center p-2 rounded-xl ${c > 0 ? 'bg-slate-700/50 border border-slate-600 cursor-pointer hover:bg-slate-600/50 transition-colors cat-detail-btn' : 'bg-slate-900/50 opacity-50'}" ${c > 0 ? `data-date="${date}" data-cat="${cat.id}"` : ''}><i class="fas ${cat.icon} ${cat.color} mb-1 pointer-events-none"></i><span class="text-[10px] text-slate-400 font-bold uppercase pointer-events-none">${c} ${unitText}</span></div>`;
+                });
+                
+                html += `</div><div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-700/50"><div class="flex items-center gap-2 min-w-0"><div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-900 flex items-center justify-center shrink-0"><i class="fas fa-heartbeat text-slate-500 text-xs"></i></div><div class="min-w-0"><p class="text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase truncate">Allgemein</p><p class="text-xs sm:text-sm font-semibold truncate ${wbColors[data.gen] || wbColors['Auswählen...']}">${data.gen || "Keine Angabe"}</p></div></div><div class="flex items-center gap-2 min-w-0"><div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-900 flex items-center justify-center shrink-0"><i class="fas fa-bone text-slate-500 text-xs"></i></div><div class="min-w-0"><p class="text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase truncate">Rücken</p><p class="text-xs sm:text-sm font-semibold truncate ${wbColors[data.back] || wbColors['Auswählen...']}">${data.back || "Keine Angabe"}</p></div></div></div></div>`;
+            });
+            html += `</div>`;
+            cont.innerHTML = html;
+        }
+
+        window.showChartTooltip = function(date, volK, volM, backText) {
+            const tt = document.getElementById('chart-tooltip');
+            if (tt) tt.innerHTML = `<span class="text-slate-300 font-bold mb-1">${date}</span><div class="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[11px] sm:text-xs"><span class="text-purple-400"><i class="fas fa-dumbbell"></i> ${volK} SEK</span><span class="text-emerald-400"><i class="fas fa-bolt"></i> ${volM} Wdh</span><span class="text-white"><i class="fas fa-bone"></i> ${backText}</span></div>`;
+        };
+
+        function showChartModal() {
+            const activeDates = Object.keys(appData).filter(d => {
+                if (d === "_settings_") return false;
+                const data = appData[d];
+                let hasVal = false;
+                if (data.ex) { Object.values(data.ex).forEach(x => { if (x.c) hasVal = true }) }
+                if (data.gen && data.gen !== "Auswählen...") hasVal = true;
+                if (data.back && data.back !== "Auswählen...") hasVal = true;
+                return hasVal;
+            }).sort();
+            
+            if (activeDates.length === 0) {
+                showModal("Diagramm", "Noch keine absolvierten Übungen vorhanden, um einen Verlauf anzuzeigen.", "fa-chart-line");
+                return;
+            }
+            
+            const startDateStr = activeDates[0];
+            const endDateStr = activeDates[activeDates.length - 1];
+            const startD = new Date(startDateStr + 'T00:00:00');
+            const endD = new Date(endDateStr + 'T00:00:00');
+            const chartData = [];
+            let currD = new Date(startD);
+            
+            while (currD <= endD) {
+                const dStr = currD.getFullYear() + '-' + String(currD.getMonth() + 1).padStart(2, '0') + '-' + String(currD.getDate()).padStart(2, '0');
+                const data = appData[dStr] || {};
+                let volK = 0, volM = 0;
+                if (data.ex) {
+                    window.appExercises.forEach(cat => {
+                        cat.items.forEach(ex => {
+                            if (data.ex[ex] && data.ex[ex].c) {
+                                const s = (data.ex[ex].s !== undefined && data.ex[ex].s !== "") ? parseFloat(data.ex[ex].s) : 1;
+                                const r = (data.ex[ex].r !== undefined && data.ex[ex].r !== "") ? parseFloat(data.ex[ex].r) : 10;
+                                const vol = (isNaN(s) ? 0 : s) * (isNaN(r) ? 0 : r);
+                                if (cat.id === "kraft") volK += vol; else volM += vol;
+                            }
+                        });
+                    });
+                }
+                const backText = (data.back && data.back !== "Auswählen...") ? data.back : "Keine Angabe";
+                const backVal = wbMap[data.back] || null;
+                chartData.push({ date: dStr, volK: volK, volM: volM, backVal: backVal, backText: backText });
+                currD.setDate(currD.getDate() + 1);
+            }
+            
+            const maxVol = Math.max(...chartData.map(d => Math.max(d.volK, d.volM)), 10);
+            window.currentChartData = chartData;
+            window.currentChartMax = maxVol;
+            const maxSliderZoom = Math.max(10, chartData.length / 3).toFixed(1);
+            
+            const chartHtml = `<div class="space-y-4 text-left flex flex-col"><div class="flex flex-wrap justify-center gap-4 text-[10px] uppercase font-bold tracking-wider mb-1"><div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.6)]"></div><span class="text-purple-300">Kraft (SEK)</span></div><div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div><span class="text-emerald-300">Mobilisation (Wdh)</span></div><div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]"></div><span class="text-white">Rückenbefinden</span></div></div><div id="chart-tooltip" class="min-h-[48px] w-full flex flex-col items-center justify-center text-xs font-bold text-slate-400 bg-slate-900/50 rounded-xl p-2 shrink-0">Tippe in den Chart für Details</div><div class="flex items-center gap-3 bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 shrink-0"><i class="fas fa-search-minus text-slate-500 text-[10px]"></i><input type="range" id="chart-zoom-slider" min="1" max="${maxSliderZoom}" step="0.1" value="1" class="flex-1 appearance-none bg-slate-700 h-1.5 rounded-full outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-emerald-400 [&::-webkit-slider-thumb]:rounded-full cursor-pointer"><i class="fas fa-search-plus text-slate-500 text-[10px]"></i></div><div id="chart-scroll-container" class="bg-slate-900/80 p-2 sm:p-3 rounded-2xl border border-slate-700/60 overflow-x-auto touch-pan-x custom-scrollbar relative"><div id="chart-render-target" class="relative"></div></div></div>`;
+            
+            showModalCustom("Verlauf", chartHtml, "fa-chart-line", true);
+            setTimeout(() => {
+                renderDynamicChart(1);
+                const slider = document.getElementById('chart-zoom-slider');
+                if (slider) { slider.addEventListener('input', e => renderDynamicChart(parseFloat(e.target.value))) }
+            }, 50);
+        }
+
+        window.renderDynamicChart = function(zoom) {
+            const container = document.getElementById('chart-scroll-container');
+            const target = document.getElementById('chart-render-target');
+            if (!container || !target) return;
+            const data = window.currentChartData;
+            const maxVol = window.currentChartMax;
+            let baseW = parseFloat(container.getAttribute('data-basew'));
+            if (!baseW || isNaN(baseW)) {
+                baseW = container.clientWidth - 24;
+                if (baseW < 200) baseW = window.innerWidth > 768 ? 600 : 300;
+                container.setAttribute('data-basew', baseW);
+            }
+            const svgW = baseW * zoom;
+            const svgH = 160;
+            const pad = 20;
+            const ptsK = data.map((d, i) => { const x = data.length > 1 ? pad + (i * (svgW - 2 * pad) / (data.length - 1)) : svgW / 2; const y = svgH - pad - ((d.volK / maxVol) * (svgH - 2 * pad)); return `${x},${y}` }).join(" ");
+            const ptsM = data.map((d, i) => { const x = data.length > 1 ? pad + (i * (svgW - 2 * pad) / (data.length - 1)) : svgW / 2; const y = svgH - pad - ((d.volM / maxVol) * (svgH - 2 * pad)); return `${x},${y}` }).join(" ");
+            let ptsB = "";
+            data.forEach((d, i) => {
+                if (d.backVal !== null) {
+                    const x = data.length > 1 ? pad + (i * (svgW - 2 * pad) / (data.length - 1)) : svgW / 2;
+                    const yB = (svgH - pad) - ((d.backVal - 1) / 4) * (svgH - 2 * pad);
+                    ptsB += `${x},${yB} `;
+                }
+            });
+            let svgDots = data.map((d, i) => {
+                const x = data.length > 1 ? pad + (i * (svgW - 2 * pad) / (data.length - 1)) : svgW / 2;
+                const yK = svgH - pad - ((d.volK / maxVol) * (svgH - 2 * pad));
+                const yM = svgH - pad - ((d.volM / maxVol) * (svgH - 2 * pad));
+                const [yy, mm, dd] = d.date.split('-');
+                const dispDate = new Date(yy, mm - 1, dd).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
+                let dots = `<rect x="${x - 10}" y="0" width="20" height="${svgH}" fill="transparent" class="cursor-pointer chart-hover transition-colors" onclick="showChartTooltip('${dispDate}', ${d.volK}, ${d.volM}, '${d.backText}')" />`;
+                if (d.volK > 0) { dots += `<circle cx="${x}" cy="${yK}" r="3" fill="#c084fc" class="pointer-events-none"/>` }
+                if (d.volM > 0) { dots += `<circle cx="${x}" cy="${yM}" r="3" fill="#10b981" class="pointer-events-none"/>` }
+                if (d.backVal !== null) {
+                    const yB = (svgH - pad) - ((d.backVal - 1) / 4) * (svgH - 2 * pad);
+                    dots += `<circle cx="${x}" cy="${yB}" r="3" fill="#ffffff" class="pointer-events-none"/>`;
+                }
+                return dots;
+            }).join("");
+            let axisLabels = '';
+            if (data.length > 0) {
+                const [fyy, fmm, fdd] = data[0].date.split('-');
+                const firstDate = new Date(fyy, fmm - 1, fdd).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+                axisLabels += `<text x="${pad}" y="${svgH - 5}" font-size="9" fill="#64748b" text-anchor="start" class="pointer-events-none">${firstDate}</text>`;
+                if (data.length > 1) {
+                    const [lyy, lmm, ldd] = data[data.length - 1].date.split('-');
+                    const lastDate = new Date(lyy, lmm - 1, ldd).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+                    axisLabels += `<text x="${svgW - pad}" y="${svgH - 5}" font-size="9" fill="#64748b" text-anchor="end" class="pointer-events-none">${lastDate}</text>`;
+                }
+            }
+            target.innerHTML = `<svg viewBox="0 0 ${svgW} ${svgH}" style="width: ${svgW}px; height: ${svgH}px;" class="max-w-none"><line x1="${pad}" y1="${svgH - pad}" x2="${svgW - pad}" y2="${svgH - pad}" stroke="#334155" stroke-width="1"/>${axisLabels}<polyline fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${ptsK}" class="pointer-events-none" /><polyline fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${ptsM}" class="pointer-events-none" /><polyline fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${ptsB}" class="pointer-events-none" />${svgDots}</svg>`;
+        };
+
+        function showCategoryDetail(dateStr, catId) {
+            const data = appData[dateStr];
+            if (!data || !data.ex) return;
+            const cat = window.appExercises.find(c => c.id === catId);
+            if (!cat) return;
+            const unitText = cat.id === "kraft" ? "SEK" : "Wdh";
+            let details = [];
+            cat.items.forEach(ex => {
+                if (data.ex[ex] && data.ex[ex].c) {
+                    const s = (data.ex[ex].s !== undefined && data.ex[ex].s !== "") ? parseFloat(data.ex[ex].s) : 1;
+                    const r = (data.ex[ex].r !== undefined && data.ex[ex].r !== "") ? parseFloat(data.ex[ex].r) : 10;
+                    const vol = (isNaN(s) ? 0 : s) * (isNaN(r) ? 0 : r);
+                    details.push(`• ${ex}: ${vol} ${unitText}`);
+                }
+            });
+            if (details.length > 0) {
+                const [cyy, cmm, cdd] = dateStr.split('-');
+                const dispDate = new Date(cyy, cmm - 1, cdd).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "long", year: "numeric" });
+                showModal(cat.cat, `Details für ${dispDate}:\n\n${details.join("\n")}`, cat.icon.replace('fa-', 'fa-'));
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const trkC = document.getElementById("tracker-cards-container");
+            const frag = document.createDocumentFragment();
+            const startDate = new Date("2026-07-29T00:00:00");
+            const today = new Date();
+            const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const endDate = new Date(todayZero.getTime() > (startDate.getTime() + 365 * 86400000) ? todayZero.getTime() + 365 * 86400000 : startDate.getTime() + 1095 * 86400000);
+            const diffTime = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+            const totalDays = Math.max(1095, diffTime);
+            
+            for (let i = 0; i < totalDays; i++) {
+                const d = new Date(startDate.getTime() + (i * 86400000));
+                const ds = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+                const disp = d.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "long", year: "numeric" });
+                const card = document.createElement("div");
+                card.className = "bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden shadow-md";
+                card.dataset.dateCard = ds;
+                card.innerHTML = `<div class="card-header p-4 sm:p-5 flex justify-between items-center cursor-pointer hover:bg-slate-700/50 transition-colors" data-date="${ds}"><div class="flex items-center gap-3 pr-2 min-w-0"><div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700 shrink-0"><i class="fas fa-calendar-alt text-emerald-400"></i></div><span class="font-bold text-[14px] sm:text-[15px] text-white truncate">${disp}</span></div><div class="flex items-center gap-2 shrink-0"><div class="indicator shrink-0 flex items-center" data-date="${ds}"></div><i class="fas fa-chevron-down text-slate-500 text-sm transition-transform duration-300 shrink-0 ml-1"></i></div></div><div class="card-content px-4 sm:px-5 pb-5 hidden" data-date="${ds}"></div>`;
+                frag.appendChild(card);
+            }
+            trkC.appendChild(frag);
+            
+            document.getElementById("btn-manage-ex").addEventListener("click", () => { showManageExercisesModal() });
+            
+            document.getElementById("btn-jump-today").addEventListener("click", () => {
+                const now = new Date();
+                const todayDs = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+                const targetCard = document.querySelector(`div[data-date-card="${todayDs}"]`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: "smooth", block: "start" });
+                    const header = targetCard.querySelector(".card-header");
+                    const content = targetCard.querySelector(".card-content");
+                    const icon = header.querySelector(".fa-chevron-down");
+                    if (content.classList.contains("hidden")) {
+                        if (!content.hasChildNodes()) buildDayForm(todayDs, content);
+                        content.classList.remove("hidden");
+                        icon.style.transform = "rotate(180deg)";
+                    }
+                }
+            });
+            
+            const trk = document.getElementById("view-tracker");
+            trk.addEventListener("click", e => {
+                const h = e.target.closest(".card-header");
+                if (h) {
+                    const d = h.dataset.date;
+                    const c = document.querySelector(`.card-content[data-date="${d}"]`);
+                    const icon = h.querySelector(".fa-chevron-down");
+                    if (c.classList.contains("hidden")) {
+                        if (!c.hasChildNodes()) buildDayForm(d, c);
+                        c.classList.remove("hidden");
+                        icon.style.transform = "rotate(180deg)";
+                    } else {
+                        c.classList.add("hidden");
+                        icon.style.transform = "rotate(0deg)";
+                    }
+                }
+            });
+            
+            trk.addEventListener("change", e => {
+                const t = e.target;
+                const d = t.dataset.date;
+                if (t.matches(".ex-check")) { ensureData(d, t.dataset.ex); appData[d].ex[t.dataset.ex].c = t.checked; updateInd(d); }
+                else if (t.matches(".ex-set")) { ensureData(d, t.dataset.ex); appData[d].ex[t.dataset.ex].s = t.value; }
+                else if (t.matches(".ex-rep")) { ensureData(d, t.dataset.ex); appData[d].ex[t.dataset.ex].r = t.value; }
+                else if (t.matches(".wb-gen")) { ensureData(d); appData[d].gen = t.value; }
+                else if (t.matches(".wb-back")) { ensureData(d); appData[d].back = t.value; }
+            });
+            
+            document.getElementById("view-overview").addEventListener("click", e => {
+                const btnDetail = e.target.closest(".cat-detail-btn");
+                if (btnDetail) { showCategoryDetail(btnDetail.dataset.date, btnDetail.dataset.cat); return; }
+                const btnChart = e.target.closest("#btn-show-chart");
+                if (btnChart) { showChartModal(); }
+            });
+            
+            document.querySelectorAll(".nav-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".nav-btn").forEach(b => {
+                        b.classList.remove("text-emerald-400");
+                        b.classList.add("text-slate-400");
+                    });
+                    btn.classList.remove("text-slate-400");
+                    btn.classList.add("text-emerald-400");
+                    const t = btn.dataset.target;
+                    if (t === "tracker") {
+                        document.getElementById("view-tracker").classList.remove("hidden");
+                        document.getElementById("view-overview").classList.add("hidden");
+                    } else {
+                        document.getElementById("view-tracker").classList.add("hidden");
+                        document.getElementById("view-overview").classList.remove("hidden");
+                        renderOverview();
+                    }
+                });
+            });
+            
+            document.querySelector(".btn-export").addEventListener("click", () => {
+                const s = JSON.stringify(appData);
+                const b = new Blob([s], { type: "application/json" });
+                const u = URL.createObjectURL(b);
+                const a = document.createElement("a");
+                a.href = u;
+                a.download = "rueckenfit_pro.json";
+                a.click();
+                URL.revokeObjectURL(u);
+                showModal("Erfolgreich Exportiert", "Deine Trainingsdaten wurden als Backup gesichert.", "fa-check-circle");
+            });
+            
+            document.querySelector(".btn-import").addEventListener("click", () => { document.getElementById("file-import").click() });
+            
+            document.getElementById("file-import").addEventListener("change", e => {
+                const f = e.target.files[0];
+                if (!f) return;
+                const r = new FileReader();
+                r.onload = ev => {
+                    try {
+                        appData = JSON.parse(ev.target.result);
+                        if (appData._settings_ && appData._settings_.exercises) { window.appExercises = appData._settings_.exercises }
+                        else { window.appExercises = JSON.parse(JSON.stringify(defaultExercises)) }
+                        document.querySelectorAll(".card-content:not(.hidden)").forEach(el => { buildDayForm(el.dataset.date, el) });
+                        document.querySelectorAll(".indicator").forEach(el => updateInd(el.dataset.date));
+                        if (!document.getElementById("view-overview").classList.contains("hidden")) renderOverview();
+                        showModal("Daten Geladen", "Dein Trainingsstand wurde nahtlos wiederhergestellt.", "fa-cloud-download-alt");
+                    } catch (err) {
+                        showModal("Fehler", "Die ausgewählte Datei ist ungültig.", "fa-exclamation-triangle");
+                    }
+                };
+                r.readAsText(f);
+                e.target.value = "";
+            });
+            
+            document.getElementById("btn-modal-close").addEventListener("click", () => {
+                document.querySelector("#modal > div").className = "bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-700 m-auto max-h-[90vh] overflow-y-auto transition-all duration-300";
+                document.getElementById("modal").style.display = "none";
+                document.getElementById("modal").classList.remove("flex");
+            });
+        });
+
+        function showModal(title, text, icon) {
+            document.querySelector("#modal > div").className = "bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-700 m-auto max-h-[90vh] overflow-y-auto transition-all duration-300";
+            document.getElementById("modal-title").innerText = title;
+            document.getElementById("modal-body").innerHTML = `<p id="modal-text" class="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">${text}</p>`;
+            const i = document.getElementById("modal-icon");
+            i.className = `fas ${icon}`;
+            document.getElementById("modal").style.display = "flex";
+            document.getElementById("modal").classList.add("flex");
+        }
+
+        function showModalCustom(title, htmlContent, icon, isLarge = false) {
+            document.querySelector("#modal > div").className = `bg-slate-800 rounded-3xl p-6 w-full ${isLarge ? 'max-w-sm md:max-w-2xl lg:max-w-3xl' : 'max-w-sm'} shadow-2xl border border-slate-700 m-auto max-h-[90vh] overflow-y-auto transition-all duration-300`;
+            document.getElementById("modal-title").innerText = title;
+            document.getElementById("modal-body").innerHTML = htmlContent;
+            const i = document.getElementById("modal-icon");
+            i.className = `fas ${icon}`;
+            document.getElementById("modal").style.display = "flex";
+            document.getElementById("modal").classList.add("flex");
+        }
+    </script>
+</body>
+</html>
